@@ -16,22 +16,22 @@ public class StringFinder {
     static String line = "";
     
  
-public  StringFinder(String filePath){   //ادرس فایل رو میگیره کانستراکتور
+public  StringFinder(String filePath){   
      String inputSearch = "{";
  	 double count = 0,countBuffer=0,countLine=0;
  	 String lineNumber = "";
 
 	 try {
-	        br = new BufferedReader(new FileReader(filePath));//فایل رو باز میکنه
+	        br = new BufferedReader(new FileReader(filePath));
 	        try {
-	            while((line = br.readLine()) != null)//خط به خط میخونه
+	            while((line = br.readLine()) != null)
 	            {
-	                countLine++; //واسه اینه ک شماره ی خط هارو داشته باشه
+	                countLine++; 
                      
 	                //System.out.println(line);
-	                String[] words = line.split(" ");// همین خطبی ک الان خوندی رو .یعنی هرجا اسپیس بود برش بزن بزار توی ارایه ی ورد
+	                String[] words = line.split(" ");
 
-	                for (String word : words) {//تا زمانی ک نال نشده و در ارایه مقدار هست
+	                for (String word : words) {
 	                  if (word.equals(inputSearch)) {
 	                       count++;
 	                    if(count==2){
@@ -46,8 +46,8 @@ public  StringFinder(String filePath){   //ادرس فایل رو میگیره �
 	                     }
 	                   
 	                    
-	                    if(count>2){   //اکولادهاش بزرگتر از 2 بود
-	                    	Path path = Paths.get(filePath);//جلوی همون خط
+	                    if(count>2){  
+	                    	Path path = Paths.get(filePath);
 	                    	List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 
 	                    	int position =(int) countLine;
