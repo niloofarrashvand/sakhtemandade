@@ -1,0 +1,64 @@
+package datastructuer;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+
+public class T {
+	    static BufferedReader br;
+	    static String line = "";
+	    
+     T(String filePath) throws ParseException {
+        String filename=filePath;
+        Path pathToFile = Paths.get(filename);
+        FileWriter fstream = null;
+        BufferedWriter bw=null;
+        PrintWriter pw=null;
+        
+        try {
+            fstream = new FileWriter(filename, true);
+            bw=new BufferedWriter(fstream);
+            pw=new PrintWriter(bw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) { 
+            String line = br.readLine();
+            String inputSearch = "for";
+
+            while (line!=null) { 
+            	 if ( line.toLowerCase().contains(inputSearch.toLowerCase())) {
+	            String kk="System.out.println("+(char)34+"*"+(char)34+");";
+	            //String kk="counter++;";
+            		 pw.println(line+" "+kk);
+                }
+            	 else 
+            	  pw.println(line);
+                 sb.append(line);
+
+                line = br.readLine(); 
+            } 
+            try (PrintWriter writer = new PrintWriter(filename)) {
+                writer.print("");
+            }
+            br.close();
+            pw.close();
+            bw.close();
+            fstream.close();
+        } catch (IOException ioe) { 
+                ioe.printStackTrace(); 
+        }
+        System.out.println("Generated!!");
+    } 
+    
+
+
+}
