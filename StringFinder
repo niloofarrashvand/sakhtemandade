@@ -1,0 +1,87 @@
+package datastructuer;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+public class StringFinder {
+    static BufferedReader br;
+    static String line = "";
+    
+ 
+public  StringFinder(String filePath){   //ادرس فایل رو میگیره کانستراکتور
+     String inputSearch = "{";
+ 	 double count = 0,countBuffer=0,countLine=0;
+ 	 String lineNumber = "";
+
+	 try {
+	        br = new BufferedReader(new FileReader(filePath));//فایل رو باز میکنه
+	        try {
+	            while((line = br.readLine()) != null)//خط به خط میخونه
+	            {
+	                countLine++; //واسه اینه ک شماره ی خط هارو داشته باشه
+                     
+	                //System.out.println(line);
+	                String[] words = line.split(" ");// همین خطبی ک الان خوندی رو .یعنی هرجا اسپیس بود برش بزن بزار توی ارایه ی ورد
+
+	                for (String word : words) {//تا زمانی ک نال نشده و در ارایه مقدار هست
+	                  if (word.equals(inputSearch)) {
+	                       count++;
+	                    if(count==2){
+	                    	Path path = Paths.get(filePath);
+	                    	List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+
+	                    	int position =(int) countLine;
+	                    	String extraLine = " int  n = Integer.parseInt(args[0]);";  
+
+	                    	lines.add(position, extraLine);
+	                    	Files.write(path, lines, StandardCharsets.UTF_8);
+	                     }
+	                   
+	                    
+	                    if(count>2){   //اکولادهاش بزرگتر از 2 بود
+	                    	Path path = Paths.get(filePath);//جلوی همون خط
+	                    	List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+
+	                    	int position =(int) countLine;
+	                    	String extraLine = "System.out.println("+"*"+");";  
+
+	                    	lines.add(position, extraLine);
+	                    	Files.write(path, lines, StandardCharsets.UTF_8);
+	                    }
+	                        countBuffer++;
+	                  }
+	                }
+
+	                if(countBuffer > 0)
+	                {
+	                    countBuffer = 0;
+	                    lineNumber += countLine + ",";
+	                }
+
+	            }
+	            br.close();
+	        } 
+                
+                    catch (IOException e) {
+                        // TODO Auto-generated catch block  
+                    e.printStackTrace();
+	        }
+                } 
+                     catch (FileNotFoundException e) {
+                         // TODO Auto-generated catch block
+	             e.printStackTrace();
+	        }
+ 
+	       System.out.println("Times found at--"+count);
+	       System.out.println("Word found at--"+lineNumber);
+}
+
+}
